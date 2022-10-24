@@ -3,7 +3,7 @@ import ply.lex as lex
 # Debe ignorar los espacios en blanco, tabulaciones, saltos de linea,  y comentarios
 t_ignore = ' \t'
 
-# Palabras reservadas (ver si me faltaron algunas)
+# Palabras reservadas
 reserved = {
     'skip' : 'TkSkip',
     'if'   : 'TkIf',
@@ -92,7 +92,7 @@ def t_error(t):
 # Build the lexer
 lexer = lex.lex()
 
-# Test it out
+# EJEMPLO PARA TESTEAR. DEBE SER UN INPUT .GCL
 data = '''
 |[
 declare
@@ -103,6 +103,8 @@ print e
 // Esto es un comentario. Debe ser ignorado.
 ]|
 '''
+
+### ESTO DEBERÍA IR EN UN MAIN OR SOMEHWERE ELSE###
 
 # Give the lexer some input
 lexer.input(data)
