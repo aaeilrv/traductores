@@ -1,12 +1,11 @@
 import ply.lex as lex
 
-
 # Debe ignorar los espacios en blanco, tabulaciones, saltos de linea,  y comentarios
 t_ignore = ' \t'
 
 # Palabras reservadas (ver si me faltaron algunas)
 reserved = {
-    'skip' : 'TkBool',
+    'skip' : 'TkSkip',
     'if'   : 'TkIf',
     'fi'   : 'TkFi',
     'do'   : 'TkDo',
@@ -29,7 +28,7 @@ tokens = [
     'TkLeq', 'TkGeg', 'TkGreater', 'TkEqual', 'TkNEqual',
     'Tk0Bracket', 'TkCBracket', 'TkTwoPoints', 'TkConcat',
     'TkId', 'TkNum', 'TkString', 'TkAnd', 'TkOr',
-    'Tk0Block', 'TkcBlock'
+    'Tk0Block', 'TkCBlock'
 ]
 
 t_TkPlus = r'\+'
@@ -40,7 +39,7 @@ t_Tk0Bracket = r'\['
 t_TkCBracket = r'\]'
 t_TkMult = r'\*'
 t_Tk0Block = r'\|\['
-t_TkcBlock = r'\]\|'
+t_TkCBlock = r'\]\|'
 t_TkAnd = r'/\\'
 t_TkOr = r'\\/'
 t_TkSoForth = r'\.\.'
@@ -113,7 +112,18 @@ while True:
     tok = lexer.token()
     if not tok: 
         break
-    print(tok)
+    else:
+        if tok.type == 'TkId':
+            print(tok.type + "(\"" + tok.value + "\")", tok.lineno, tok.lexpos)
+        elif tok.type == 'TkNum':
+            print(tok.type + "(" + str(tok.value) + ")", tok.lineno, tok.lexpos)
+        elif tok.type == 'TkString':
+            print(tok.type + "(\"" + tok.value + "\")", tok.lineno, tok.lexpos)
+        else:
+            print(tok.type, tok.lineno, tok.lexpos)
 
 ### Cosas que faltan: ###
 # - Detectar errores
+# - Ver si hay más palabras reservadas
+# - Crear función main donde se pida el input que va a pasar a través del lexer
+# - Imprimir fila y columna correctamente
