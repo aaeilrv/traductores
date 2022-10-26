@@ -92,40 +92,30 @@ def t_error(t):
 # Build the lexer
 lexer = lex.lex()
 
-# EJEMPLO PARA TESTEAR. DEBE SER UN INPUT .GCL
-data = '''
-|[
-declare
-a, b, c : int;
-d, e, f : array[0..2]
-a := b + 3;
-print e
-// Esto es un comentario. Debe ser ignorado.
-]|
-'''
 
 ### ESTO DEBERÍA IR EN UN MAIN OR SOMEHWERE ELSE###
 
 # Give the lexer some input
-lexer.input(data)
- 
-# Tokenize
-while True:
-    tok = lexer.token()
-    if not tok: 
-        break
-    else:
-        if tok.type == 'TkId':
-            print(tok.type + "(\"" + tok.value + "\")", tok.lineno, tok.lexpos)
-        elif tok.type == 'TkNum':
-            print(tok.type + "(" + str(tok.value) + ")", tok.lineno, tok.lexpos)
-        elif tok.type == 'TkString':
-            print(tok.type + "(\"" + tok.value + "\")", tok.lineno, tok.lexpos)
+def work(data):
+
+    lexer.input(data)
+    # Tokenize
+    while True:
+        tok = lexer.token()
+        if not tok: 
+            break
         else:
-            print(tok.type, tok.lineno, tok.lexpos)
+            if tok.type == 'TkId':
+                print(tok.type + "(\"" + tok.value + "\")", tok.lineno, tok.lexpos)
+            elif tok.type == 'TkNum':
+                print(tok.type + "(" + str(tok.value) + ")", tok.lineno, tok.lexpos)
+            elif tok.type == 'TkString':
+                print(tok.type + "(\"" + tok.value + "\")", tok.lineno, tok.lexpos)
+            else:
+                print(tok.type, tok.lineno, tok.lexpos)
 
 ### Cosas que faltan: ###
 # - Detectar errores
 # - Ver si hay más palabras reservadas
-# - Crear función main donde se pida el input que va a pasar a través del lexer
+# - Crear función main donde se pida el input que va a pasar a través del lexer (liiiisto)
 # - Imprimir fila y columna correctamente
