@@ -1,7 +1,7 @@
 import sys
 import func_lexer as lexer
 
-# Funcion main, ejemplo de entrada: python main.py archivo.gcl
+# Funcion main, ejemplo de entrada: python lexer.py archivo.gcl
 # Solo se aceptan archivos .gcl
 # Se debe colocar en el archivo.gcl el codigo a ser analizado
 

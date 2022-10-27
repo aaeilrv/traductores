@@ -84,18 +84,19 @@ def t_comment(t):
     r'//.*'
     pass
 
+line_g = 0
 # Error handling rule
 def t_error(t):
-    print("Error: Unexpected character '%s' in column " % t.value[0],t.lexpos+1)
+    print("Error: Unexpected character '%s' in row %d, column %d" % (t.value[0],line_g,t.lexpos+1))
     t.lexer.skip(1)
 
 # Build the lexer
 lexer = lex.lex()
 
-
 # Give the lexer some input
 def work(data,line):
-
+    global line_g
+    line_g = line
     lexer.input(data)
     # Tokenize
     while True:
@@ -113,7 +114,7 @@ def work(data,line):
                 print(tok.type, line, tok.lexpos +1)
 
 ### Cosas que faltan: ###
-# - Detectar errores
-# - Ver si hay más palabras reservadas 
+# - Detectar errores  parece que doneeee
+# - Ver si hay más palabras reservadas no pareciera....creo
 # - Crear función main donde se pida el input que va a pasar a través del lexer (liiiisto)
 # - Imprimir fila y columna correctamente  creeeeeeo que funciona
