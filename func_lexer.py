@@ -28,7 +28,7 @@ tokens = [
     'TkLeq', 'TkGeg', 'TkGreater', 'TkEqual', 'TkNEqual',
     'Tk0Bracket', 'TkCBracket', 'TkTwoPoints', 'TkConcat',
     'TkId', 'TkNum', 'TkString', 'TkAnd', 'TkOr',
-    'Tk0Block', 'TkCBlock'
+    'Tk0Block', 'TkCBlock', 'tKGuard'
 ]
 
 t_TkPlus = r'\+'
@@ -56,6 +56,7 @@ t_TkGreater = r'>'
 t_TkEqual = r'=='
 t_TkNEqual = r'!='
 t_TkTwoPoints = r':'
+t_TkGuard = r'[]'
 
 tokens = tokens + list(reserved.values())
 
@@ -112,9 +113,3 @@ def work(data,line):
                 print(tok.type + "(\"" + tok.value + "\")", line, tok.lexpos +1)
             else:
                 print(tok.type, line, tok.lexpos +1)
-
-### Cosas que faltan: ###
-# - Detectar errores  parece que doneeee
-# - Ver si hay más palabras reservadas no pareciera....creo
-# - Crear función main donde se pida el input que va a pasar a través del lexer (liiiisto)
-# - Imprimir fila y columna correctamente  creeeeeeo que funciona
