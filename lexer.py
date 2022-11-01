@@ -6,6 +6,8 @@ import func_lexer as lexer
 # Se debe colocar en el archivo.gcl el codigo a ser analizado
 
 def main():
+    correct = []
+    incorrect = []
     try:
         filename = sys.argv[1]
     except:
@@ -17,15 +19,21 @@ def main():
         row = 1
         try:
             for line in file.readlines():
-                lexer.work(line,row)               
+                incorrect = lexer.work(line,row, correct)            
+                #lexer.work(line,row, correct)    
                 row += 1
         except:
            print("archivo no existe")
            return 1
     else:
-        print("arhivo solo puede ser de tipo .gcl")
-   
-
+        print("archivo solo puede ser de tipo .gcl")
+    
+    if incorrect == []:
+        for i in correct:
+            print(i)
+    else:
+        for i in incorrect:
+            print(i)
 
 if __name__ == "__main__":
     main()

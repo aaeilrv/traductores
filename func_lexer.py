@@ -28,7 +28,7 @@ tokens = [
     'TkLeq', 'TkGeg', 'TkGreater', 'TkEqual', 'TkNEqual',
     'Tk0Bracket', 'TkCBracket', 'TkTwoPoints', 'TkConcat',
     'TkId', 'TkNum', 'TkString', 'TkAnd', 'TkOr',
-    'Tk0Block', 'TkCBlock', 'tKGuard'
+    'Tk0Block', 'TkCBlock', 'TkGuard',
 ]
 
 t_TkPlus = r'\+'
@@ -56,7 +56,7 @@ t_TkGreater = r'>'
 t_TkEqual = r'=='
 t_TkNEqual = r'!='
 t_TkTwoPoints = r':'
-t_TkGuard = r'[]'
+t_TkGuard = r'\[\]'
 
 tokens = tokens + list(reserved.values())
 
@@ -70,8 +70,9 @@ def t_TkNum(t):
     t.value = int(t.value)
     return t
 
+#hacer que reconozca \" como un caracter"
 def t_TkString(t):
-    r'\".*?\"'
+    r'\".*?"'
     t.value = t.value[1:-1] # remueve las comillas
     return t
 
@@ -86,30 +87,38 @@ def t_comment(t):
     pass
 
 line_g = 0
+error = []
+
 # Error handling rule
 def t_error(t):
-    print("Error: Unexpected character '%s' in row %d, column %d" % (t.value[0],line_g,t.lexpos+1))
+    global error
+    error.append('Error: Unexpected character {} in row {}, colum P{}'.format(t.value[0],line_g,t.lexpos+1))
     t.lexer.skip(1)
 
 # Build the lexer
 lexer = lex.lex()
 
 # Give the lexer some input
-def work(data,line):
+def work(data,line, correct):
+    global error
     global line_g
+
     line_g = line
     lexer.input(data)
+
     # Tokenize
     while True:
         tok = lexer.token()
-        if not tok: 
+        if not tok:
             break
         else:
             if tok.type == 'TkId':
-                print(tok.type + "(\"" + tok.value + "\")", line, tok.lexpos +1)
+                correct.append('{}(\"{}\"), {}, {}'.format(tok.type, tok.value, line, tok.lexpos +1))
             elif tok.type == 'TkNum':
-                print(tok.type + "(" + str(tok.value) + ")", line, tok.lexpos +1)
+                correct.append('{}({}), {}, {}'.format(tok.type, tok.value, line, tok.lexpos +1))
             elif tok.type == 'TkString':
-                print(tok.type + "(\"" + tok.value + "\")", line, tok.lexpos +1)
+                correct.append('{}(\"{}\"), {}, {}'.format(tok.type, tok.value, line, tok.lexpos +1))
             else:
-                print(tok.type, line, tok.lexpos +1)
+                correct.append('{}({}, {}, {})'.format(tok.type, line, tok.lexpos +1, tok.value))
+    
+    return error
