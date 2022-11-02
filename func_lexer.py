@@ -113,12 +113,12 @@ def work(data,line, correct):
             break
         else:
             if tok.type == 'TkId':
-                correct.append('{}(\"{}\"), {}, {}'.format(tok.type, tok.value, line, tok.lexpos +1))
+                correct.append('{}(\"{}\") {} {}'.format(tok.type, tok.value, line, tok.lexpos +1))
             elif tok.type == 'TkNum':
-                correct.append('{}({}), {}, {}'.format(tok.type, tok.value, line, tok.lexpos +1))
+                correct.append('{}({}) {} {}'.format(tok.type, tok.value, line, tok.lexpos +1))
             elif tok.type == 'TkString':
-                correct.append('{}(\"{}\"), {}, {}'.format(tok.type, tok.value, line, tok.lexpos +1))
+                correct.append('{} {} {}'.format(tok.type, line, tok.lexpos +1))
             else:
-                correct.append('{}({}, {}, {})'.format(tok.type, line, tok.lexpos +1, tok.value))
+                correct.append('{} {} {}'.format(tok.type, line, tok.lexpos +1))
     
     return error
