@@ -72,7 +72,7 @@ def t_TkNum(t):
 
 #hacer que reconozca \" como un caracter"
 def t_TkString(t):
-    r'\".*?"'
+    r'"[^\\"]*(?:\\.[^\\"]*)*"'
     t.value = t.value[1:-1] # remueve las comillas
     return t
 
@@ -92,7 +92,7 @@ error = []
 # Error handling rule
 def t_error(t):
     global error
-    error.append('Error: Unexpected character {} in row {}, colum P{}'.format(t.value[0],line_g,t.lexpos+1))
+    error.append('Error: Unexpected character {} in row {}, colum {}'.format(t.value[0],line_g,t.lexpos+1))
     t.lexer.skip(1)
 
 # Build the lexer
@@ -117,7 +117,7 @@ def work(data,line, correct):
             elif tok.type == 'TkNum':
                 correct.append('{}({}) {} {}'.format(tok.type, tok.value, line, tok.lexpos +1))
             elif tok.type == 'TkString':
-                correct.append('{} {} {}'.format(tok.type, line, tok.lexpos +1))
+                correct.append('{} (\"{}\") {} {}'.format(tok.type, tok.value, line, tok.lexpos +1))
             else:
                 correct.append('{} {} {}'.format(tok.type, line, tok.lexpos +1))
     
