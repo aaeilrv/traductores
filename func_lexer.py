@@ -62,7 +62,7 @@ tokens = tokens + list(reserved.values())
 
 def t_TkId(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value,'TkId')    # Check for reserved words
+    t.type = reserved.get(t.value,'TkId')    # Busqueda por palabras reservadas
     return t
 
 def t_TkNum(t):
@@ -70,7 +70,6 @@ def t_TkNum(t):
     t.value = int(t.value)
     return t
 
-#hacer que reconozca \" como un caracter"
 def t_TkString(t):
     r'\"(\\\"|\\\\|\\n|[^\\\n])*?\"'
     t.value = t.value[1:-1] # remueve las comillas
@@ -89,16 +88,16 @@ def t_comment(t):
 line_g = 0
 error = []
 
-# Error handling rule
+# Regla de manejo de errores
 def t_error(t):
     global error
     error.append('Error: Unexpected character {} in row {}, colum {}'.format(t.value[0],line_g,t.lexpos+1))
     t.lexer.skip(1)
 
-# Build the lexer
+# Construir el lexer
 lexer = lex.lex()
 
-# Give the lexer some input
+# Input de entrada al lexer
 def work(data,line, correct):
     global error
     global line_g

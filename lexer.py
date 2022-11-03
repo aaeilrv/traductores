@@ -31,20 +31,13 @@ def main():
     else:
         print("archivo solo puede ser de tipo .gcl")
     
-    # Se imprime en consola y crea un archivo de salida.
-    with open('lexer_result.out', 'w') as f:
-        if incorrect == []:
-            for i in correct:
-                f.write(i)
-                print(i)
-                if i != correct[-1]:
-                    f.write("\n")
-        else:
-            for i in incorrect:
-                f.write(i)
-                print(i)
-                if i != correct[-1]:
-                    f.write("\n")
+    # impresion de archivos en la consola
+    if incorrect == []:
+        for i in correct:
+            print(i)
+    else:
+        for i in incorrect:
+            print(i)
 
 if __name__ == "__main__":
     main()
