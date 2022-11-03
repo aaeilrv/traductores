@@ -1,3 +1,7 @@
+# Traductores e Interpretadores
+# Valeria Vera 16-11233
+# Giacomo Tosone 14-11085
+
 import sys
 import func_lexer as lexer
 

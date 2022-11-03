@@ -72,7 +72,7 @@ def t_TkNum(t):
 
 #hacer que reconozca \" como un caracter"
 def t_TkString(t):
-    r'"[^\\"]*(?:\\.[^\\"]*)*"'
+    r'\"(\\\"|\\\\|\\n|[^\\\n])*?\"'
     t.value = t.value[1:-1] # remueve las comillas
     return t
 
