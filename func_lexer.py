@@ -117,7 +117,7 @@ def work(data,line, correct):
             elif tok.type == 'TkNum':
                 correct.append('{}({}) {} {}'.format(tok.type, tok.value, line, tok.lexpos +1))
             elif tok.type == 'TkString':
-                correct.append('{} (\"{}\") {} {}'.format(tok.type, tok.value, line, tok.lexpos +1))
+                correct.append('{}(\"{}\") {} {}'.format(tok.type, tok.value, line, tok.lexpos +1))
             else:
                 correct.append('{} {} {}'.format(tok.type, line, tok.lexpos +1))
     
